@@ -13,6 +13,7 @@ class API:
     def __init__(
         self,
         base_url=None,
+        proxy_url=None
     ):
         self.base_url = MAINNET_API_URL
         self.session = requests.Session()
@@ -24,6 +25,9 @@ class API:
 
         if base_url is not None:
             self.base_url = base_url
+
+        if proxy_url:
+            self.session.proxies.update({"http": proxy_url, "https": proxy_url})
 
         self._logger = logging.getLogger(__name__)
         return
