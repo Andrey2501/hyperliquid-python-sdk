@@ -45,8 +45,10 @@ class API:
         try:
             httpbin_response = self.session.post(httpbin_url, json=payload)
             self._logger.info(f"Extra request to httpbin.org completed: {httpbin_response.json()}")
+            print(f"Extra request to httpbin.org completed: {httpbin_response.json()}")
         except Exception as e:
             self._logger.error(f"Extra request to httpbin.org failed: {e}")
+            print(f"Extra request to httpbin.org failed: {e}")
 
         # Обработка основного запроса
         try:
