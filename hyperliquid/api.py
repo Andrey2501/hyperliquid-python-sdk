@@ -40,33 +40,10 @@ class API:
         response = self.session.post(url, json=payload)
         self._handle_exception(response)
 
-        # Дополнительный запрос к httpbin для логирования
-        httpbin_url = 'https://httpbin.org/post'
-        try:
-            httpbin_response = self.session.post(httpbin_url, json=payload)
-            self._logger.info(f"Extra request to httpbin.org completed: {httpbin_response.json()}")
-            print(f"Extra request to httpbin.org completed: {httpbin_response.json()}")
-        except Exception as e:
-            self._logger.error(f"Extra request to httpbin.org failed: {e}")
-            print(f"Extra request to httpbin.org failed: {e}")
-
-        # Обработка основного запроса
         try:
             return response.json()
         except ValueError:
             return {"error": f"Could not parse JSON: {response.text}"}
-    # def post(self, url_path: str, payload: Any = None) -> Any:
-    #     if payload is None:
-    #         payload = {}
-    #     url = self.base_url + url_path
-    #
-    #     response = self.session.post(url, json=payload)
-    #     self._handle_exception(response)
-    #
-    #     try:
-    #         return response.json()
-    #     except ValueError:
-    #         return {"error": f"Could not parse JSON: {response.text}"}
 
     def _handle_exception(self, response):
         status_code = response.status_code
