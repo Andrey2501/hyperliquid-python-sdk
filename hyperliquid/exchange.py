@@ -46,8 +46,9 @@ class Exchange(API):
         base_url: Optional[str] = None,
         meta: Optional[Meta] = None,
         vault_address: Optional[str] = None,
+        proxy_url=None
     ):
-        super().__init__(base_url)
+        super().__init__(base_url, proxy_url)
         self.wallet = wallet
         self.vault_address = vault_address
         self.info = Info(base_url, skip_ws=True)
