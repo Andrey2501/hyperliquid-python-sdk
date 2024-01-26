@@ -173,19 +173,7 @@ def construct_phantom_agent(signature_types, signature_data, is_mainnet):
     return {"source": "a" if is_mainnet else "b", "connectionId": keccak(connection_id)}
 
 
-def sign_l1_action_user_points(wallet, signature_types, signature_data, active_pool, nonce, is_mainnet, action_type_code=None):
-    signature_types.append("address")
-    signature_types.append("uint64")
-    if active_pool is None:
-        signature_data.append(ZERO_ADDRESS)
-    else:
-        signature_data.append(active_pool)
-    signature_data.append(nonce)
-
-    if action_type_code is not None:
-        signature_types.append("uint16")
-        signature_data.append(action_type_code)
-
+def sign_l1_action_user_points(wallet, signature_types, signature_data, is_mainnet):
     phantom_agent = construct_phantom_agent(signature_types, signature_data, is_mainnet)
 
     data = {
