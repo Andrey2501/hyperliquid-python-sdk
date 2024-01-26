@@ -190,16 +190,22 @@ def sign_l1_action_user_points(wallet, signature_types, signature_data, active_p
 
     data = {
         "domain": {
-            "chainId": 1337,
             "name": "Exchange",
-            "verifyingContract": "0x0000000000000000000000000000000000000000",
             "version": "1",
+            "chainId": 42161 if is_mainnet else 421614,
+            "verifyingContract": "0x0000000000000000000000000000000000000000",
         },
         "types": {
             "Agent": [
                 {"name": "source", "type": "string"},
                 {"name": "connectionId", "type": "bytes32"},
-            ]
+            ],
+            "EIP712Domain": [
+                {"name": "name", "type": "string"},
+                {"name": "version", "type": "string"},
+                {"name": "chainId", "type": "uint256"},
+                {"name": "verifyingContract", "type": "address"},
+            ],
         },
         "primaryType": "Agent",
         "message": phantom_agent,
